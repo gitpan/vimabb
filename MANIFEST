@@ -1,0 +1,9 @@
+MANIFEST
+Makefile.PL
+README
+bin/vimabb
+t/00-clitest.t
+t/abb1
+t/abb2
+t/perl-
+META.yml                                 Module meta-data (added by MakeMaker)

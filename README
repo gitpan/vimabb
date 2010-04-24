@@ -1,0 +1,146 @@
+
+================================================================================
+
+vimabb - Turn stdin into vim abbreviation code.
+
+DESCRIPTION
+    Makes it easier to put code snipplets in vim abbs.
+
+USAGE
+    vimabb [OPTIONS].. STDIN
+
+       -h             help
+       -a string      abbreviation name
+       -v             version
+
+  USAGE EXAMPLES
+    *
+           vimabb ./codesnipplets/stdin- >> ~/.vimrc
+           cat code.pl | vimabb -a 'nameofabb'
+
+        Now the abbreviation 'stdin-' exists.
+
+    *
+    SUGGESTED USE
+        For some coding languages, I may simply have a lot of code chunks
+        that I reuse.
+
+        Let's take css as an example.
+
+        1) I create a directory
+
+           mkdir /tmp/css
+
+        2) In it I place various simple text files. Each one is named as the
+        abbreviation.
+
+        For example, if I have a chunk of css that should be expanded from
+        the abbreviation 'links', I create /tmp/css/links-, in that file, I
+        place the code I want to expand to. I have another one called
+        /tmp/css/tables-.
+
+        At this point I have a directory with:
+
+           /tmp/css/tables-
+           /tmp/css/links-
+
+        3) Now I want to turn these into abbreviations, save them to a file,
+        which is only loaded if I am editing css! How?
+
+           vimabb /tmp/css/??* >> /tmp/abbreviations.css.vim
+
+        Now you have things like iab links ... iab tables ...
+
+        In that file ( /tmp/abbreviations.css.vim )
+
+        Take a look inside:
+
+           cat /tmp/abbreviations.css.vim
+
+        4) Making use of the output..
+
+        Make sure you have a ~/.vim directory. Put the file there..
+
+           mkdir ~/.vim
+           mv /tmp/abbreviations.css.vim ~/.vim/abbreviations.css.vim
+
+        5) Now add this to your ~/.vimrc
+
+           autocmd bufread,bufnewfile *.css so ~/.vim/abbreviations.css.vim
+
+        Great. Now, whenever you are editing css files, these abbreviations
+        will be accessible to you. You can try it out.. edit a /tmp/test.css
+        file, and in command mode issue
+
+           :ab 
+
+        to see the abbreviations presently active. You should see your
+        'tables-' and 'links-' abbreviations!
+
+        You can also save abbreviations to a file such as in the example
+        above, and only load them when you want them! Instead of using the
+        autocmd line in your ~/.vimrc.. as shown in step 5) You would edit a
+        file, and then issue the source command in vim exec mode..
+
+           :so ~/.vim/abbreviations.css.vim
+
+    Example input and output..
+           # cat t/abb1
+           I am content
+           over many
+           lines of
+              and with indentation even
+
+           and then the indents... they end.
+
+           # vimabb t/abb1
+           iab abb1
+           \<esc>:set noautoindent<CR><insert>
+           \I am content
+           \<CR>over many
+           \<CR>lines of
+           \<CR>   and with indentation even
+           \<CR>
+           \<CR>and then the indents... they end.
+   
+BUGS
+    Yes, contact AUTHOR.
+
+CAVEATS
+    This is in development- I make use of this program, if you have any
+    suggestions and or contributions, the AUTHOR has been dumped- and has a
+    lot of time in his hands.
+
+AUTHOR
+    Leo Charre leocharre at cpan dot org
+
+LICENSE
+    This package is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself, i.e., under the terms of the
+    "Artistic License" or the "GNU General Public License".
+
+DISCLAIMER
+    This package is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+    See the "GNU General Public License" for more details.
+
+
+--------------------------------------------------------------------------------
+
+
+
+REQUIRES
+
+Carp: 1
+Getopt::Std::Strict: 1.01
+
+
+INSTALL
+
+   perl Makefile.PL
+   make install
+
+
+
