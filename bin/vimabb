@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use Getopt::Std::Strict 'hva:';
-our $VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 1.8 $ =~ /(\d+)/g;
 $opt_v and print $VERSION and exit;
 $opt_h and print STDERR usage() and exit;
 
@@ -49,6 +49,16 @@ for (@STDINS){
    else {
       $abb = $filename;
       $abb=~s/.+\///;
+
+      if( $abb eq '-' ){
+         warn("There's no abbreviation set, using default name 'vimabb'");
+         $abb = 'vimabb';
+      }
+   }
+
+
+   if (!$abb){
+      die("cab't figure out abbreviation name. use the -a flag");
    }
 
 
@@ -60,10 +70,13 @@ for (@STDINS){
 
    my $out;
 
+
    my @lines =  (split(/\n/,$content));
    my $linecount = scalar @lines;
+
+
    if ($linecount > 1 ){ # multiple lines
-      print "iab $abb 
+      $out = "iab $abb 
 \\<esc>:set noautoindent<CR><insert>
 \\". (join("\n\\<CR>",@lines))."\n\\<CR><esc>:set autoindent<CR><insert>\n";
       
@@ -71,11 +84,14 @@ for (@STDINS){
 
    else { # single line
       
-      print "iab $abb @lines\n";
+      $out =  "iab $abb @lines\n";
 
    }
 
+   #  ok.. we have to substitute any pipes (|) with <bar> 
+   $out=~s/\|/<bar>/g;
 
+   print $out;
 
 }
    

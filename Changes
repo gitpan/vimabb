@@ -1,0 +1,21 @@
+2010-05-17 14:07  cvs
+
+	* bin/vimabb: The pipe character has to be escaped/substituted,
+	  because the pipe is the breaker for next vim command, so- we
+	  substitute now any pipes for <bar>.
+
+2010-04-23 20:59  cvs
+
+	* bin/vimabb: Improved documentation for release.
+
+2010-04-01 11:23  cvs
+
+	* bin/vimabb: Fixed stdin problem with the code, we wanted to make
+	  sure that if you provide file in ARGVS, we use that by default to
+	  know the abb names
+
+2010-03-31 10:24  cvs
+
+	* MANIFEST, Makefile.PL, README, bin/vimabb, t/00-clitest.t:
+	  Initial revision
+
