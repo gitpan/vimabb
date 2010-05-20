@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 use strict;
 use Getopt::Std::Strict 'hva:';
-our $VERSION = sprintf "%d.%02d", q$Revision: 1.8 $ =~ /(\d+)/g;
-$opt_v and print $VERSION and exit;
+our $VERSION = sprintf "%d.%02d", q$Revision: 1.9 $ =~ /(\d+)/g;
+$opt_v and print "$VERSION\n" and exit;
 $opt_h and print STDERR usage() and exit;
 
 ###############################################################################

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               vimabb
-version:            1.08
+version:            1.09
 abstract:           Turn stdin into vim abbreviation code.
 author:
     - Leo Charre leocharre at cpan dot org
